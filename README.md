@@ -13,7 +13,12 @@ php artisan migrate
 
 ## Tests
 
+### orderController (backend testing)
 php artisan test --filter OrderControllerTest
+
+### Webform data with IndexedDB (front-end testing)
+npx cypress open
+run cypress/e2e/webform.cy.js
 
 # Stage 2: Form submission and storing data on indexed DB
 
@@ -36,9 +41,6 @@ We can use Laravel built in Queue system.
 4. high demand api requests will nicely handle based on max parallel requests configured.
 
 5. Integrate horizon to see all jobs in the queue.
-
-  
-  
 
 # For Postman
 
