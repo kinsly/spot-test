@@ -1,15 +1,13 @@
 
-## Install Laravel
+## Install
 
-composer create-project laravel/laravel example-app
+1. git clone https://github.com/kinsly/spot-test.git
+2. composer install
+3. npm install cypress --save-dev
+4. Configure .env
+5. php artisan migrate
+6. php artisan serve
 
-composer require laravel/breeze --dev
-
-## Install Starter kit (use api)
-
-php artisan breeze:install
-
-php artisan migrate
 
 ## Tests
 
@@ -26,7 +24,6 @@ run cypress/e2e/webform.cy.js
 2. route = /web-form
 3. url: http://127.0.0.1:8000/web-form
 4. source: resources/webform.blade.php
-
 
 ## Suggestion to face high demand for API requests
 
