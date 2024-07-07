@@ -15,6 +15,17 @@ return [
 
     'name' => env('APP_NAME', 'Laravel'),
 
+     /*
+    |--------------------------------------------------------------------------
+    | Order API End Point
+    |--------------------------------------------------------------------------
+    |
+    | This value is used to send newly created order to given api end point
+    |
+    */
+
+    'apiEndPoint' => "https://wibip.free.beeceptor.com/order",
+
     /*
     |--------------------------------------------------------------------------
     | Application Environment

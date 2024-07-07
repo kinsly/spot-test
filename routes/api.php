@@ -8,4 +8,5 @@ Route::middleware(['auth:sanctum'])->get('/user', function (Request $request) {
     return $request->user();
 });
 
-Route::resource('/orders', OrderController::class)->middleware('auth');
+Route::get('/orders', [OrderController::class,'index'])->middleware('auth');
+Route::post('/orders', [OrderController::class,'store'])->middleware('auth');
