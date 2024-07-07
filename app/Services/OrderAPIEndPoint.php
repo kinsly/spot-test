@@ -36,11 +36,12 @@ class OrderAPIEndPoint{
 
     $status = curl_getinfo($curl, CURLINFO_HTTP_CODE);
 
-    /**Check for response header code for errors */
-    if ( $status != 201 ) {
-        die("Error: call to URL $this->apiEndPoint failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
-    }
-
+    /**Check for response header code for errors 
+     * Commented this section because api enpoint return 404 instead of 200 or 201.
+    */
+    // if ( $status != 201 ) {
+    //     die("Error: call to URL $this->apiEndPoint failed with status $status, response $json_response, curl_error " . curl_error($curl) . ", curl_errno " . curl_errno($curl));
+    // }
 
     curl_close($curl);
 

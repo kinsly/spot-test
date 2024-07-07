@@ -65,8 +65,8 @@ class OrderController extends Controller
         ];
 
         //sending created order payload to api endpoint
-        // $orderAPI = new OrderAPIEndPoint();
-        // return $orderAPI->send($apiData);        
-        return "Order added successfully";
+        $orderAPI = new OrderAPIEndPoint();
+        return $orderAPI->send($apiData);        
+        // return "Order added successfully";
     }
 }

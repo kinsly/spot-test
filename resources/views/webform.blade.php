@@ -21,21 +21,21 @@
             <form id="formData" onsubmit="event.preventDefault();">
               <div class="mb-3">
                 <label for="username" class="form-label">User Name</label>
-                <input type="text" class="form-control" id="username">
+                <input type="text" class="form-control" id="username" data-cy="name">
                 
               </div>
   
               <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
-                <input type="email" class="form-control" id="email">
+                <input type="email" class="form-control" id="email" data-cy="email">
               </div>
   
               <div class="mb-3">
                 <label for="nic" class="form-label">NIC:</label>
-                <input type="text" class="form-control" id="nic">
+                <input type="text" class="form-control" id="nic" data-cy="nic">
               </div>
   
-              <button type="submit" class="btn btn-primary" onClick="submitForm()">Submit</button>
+              <button type="submit" class="btn btn-primary" onClick="submitForm()" data-cy="submit">Submit</button>
             </form>
 
           </div>
