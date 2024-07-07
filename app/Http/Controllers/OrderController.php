@@ -54,7 +54,7 @@ class OrderController extends Controller
         $Order_Date = new DateTime($newOrder->created_at);
 
 
-        //Create API payload using newly created order model
+        //Create payload using newly created order model for api endpoint at beeceptor.com
         $apiData = [
             "Order_ID" => strval($newOrder->id),
             "Customer_Name" => $newOrder->customer_name,
@@ -65,7 +65,8 @@ class OrderController extends Controller
         ];
 
         //sending created order payload to api endpoint
-        $orderAPI = new OrderAPIEndPoint();
-        return $orderAPI->send($apiData);        
+        // $orderAPI = new OrderAPIEndPoint();
+        // return $orderAPI->send($apiData);        
+        return "Order added successfully";
     }
 }

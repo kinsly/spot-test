@@ -18,4 +18,9 @@ class Order extends Model
         'user_id'
     ];
 
+    protected $hidden = [
+        'user_id',
+        'deleted_at',
+    ];
+
 }
