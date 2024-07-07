@@ -12,6 +12,9 @@
         Featured
       </div>
       <div class="card-body">
+        <div id="alert_error"></div>
+        
+
         <div class="row">
           <div class="col-md-4">
 
@@ -35,7 +38,7 @@
   
               <button type="submit" class="btn btn-primary" onClick="submitForm()">Submit</button>
             </form>
-            
+
           </div>
           <div class="col-md-6">
             <table class="table">
@@ -80,27 +83,7 @@
     //On success display indexedDB data on datatable
     dbRequest.onsuccess = function(event) {
       db = event.target.result;
-      objectStore = db.transaction("formData").objectStore("formData");
-
-      // Get data table tbody
-      const tableTbody = document.getElementById("datatable_tbody");
-
-      //Get all available data in indexedDB formdata store and add it to datatable.
-      objectStore.openCursor().onsuccess = (event) => {
-        const cursor = event.target.result;
-        if (cursor) {
-          tableTbody.innerHTML += `
-                                  <tr>
-                                    <th>${cursor.key}</th>
-                                    <td>${cursor.value.name}</td>
-                                    <td>${cursor.value.email}</td>
-                                    <td>${cursor.value.nic}</td>
-                                  </tr>`;
-          cursor.continue();
-        } else {
-          console.log("No more entries!");
-        }
-      };
+      displayData(db)
     };
 
     //Save form data to indexedDB onsubmit.
@@ -124,16 +107,50 @@
       const request = objectStore.add(formData);
 
       //log on success
-      request.onsuccess = function(event) {
+      request.onsuccess = function(event) { 
         console.log("Data added to IndexedDB");
+        //Reset form
+        document.getElementById("formData").reset();
+
+        //Remove errors
+        const contentDiv = document.getElementById("alert_error");
+        contentDiv.innerHTML = '';
+
+        //Show added entry on data table
+        displayData(db)
+
       };
 
       //log on error
-      request.onerror = function(event) {
-        console.error("Error adding data:", event.target.error);
+      request.onerror = function(event) { 
+        const contentDiv = document.getElementById("alert_error");
+        contentDiv.innerHTML += '<div class="alert alert-danger" role="alert">'+event.target.error+'</div>';
       };
     }
 
+    function displayData(db){
+      objectStore = db.transaction("formData").objectStore("formData");
+
+      // Get data table tbody
+      const tableTbody = document.getElementById("datatable_tbody");
+      tableTbody.innerHTML = '';
+      //Get all available data in indexedDB formdata store and add it to datatable.
+      objectStore.openCursor().onsuccess = (event) => {
+        const cursor = event.target.result;
+        if (cursor) {
+          tableTbody.innerHTML += `
+                                  <tr>
+                                    <th>${cursor.key}</th>
+                                    <td>${cursor.value.name}</td>
+                                    <td>${cursor.value.email}</td>
+                                    <td>${cursor.value.nic}</td>
+                                  </tr>`;
+          cursor.continue();
+        } else {
+          console.log("No more entries!");
+        }
+      };
+    }
 
   </script>
 
