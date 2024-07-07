@@ -9,7 +9,7 @@
   <body>
     <div class="card text-center">
       <div class="card-header">
-        Featured
+        Webform with IndexedDB
       </div>
       <div class="card-body">
         <div id="alert_error"></div>
@@ -28,7 +28,6 @@
               <div class="mb-3">
                 <label for="email" class="form-label">Email address</label>
                 <input type="email" class="form-control" id="email">
-                
               </div>
   
               <div class="mb-3">
@@ -76,20 +75,23 @@
       objectStore.createIndex("nic", "nic", { unique: false });
     };
 
+    //Handle error when opening indexedDB
     dbRequest.onerror = function(event) {
       console.error("Error opening IndexedDB:", event.target.errorCode);
     };
 
     //On success display indexedDB data on datatable
     dbRequest.onsuccess = function(event) {
+      //Assign database instance to globally initiated variable at the beggining
+      //So that db variable accessible inside functions
       db = event.target.result;
-      displayData(db)
+      displayData()
     };
 
     //Save form data to indexedDB onsubmit.
     function submitForm() {
 
-      //Retreive form data information.
+      //Retreive data from form.
       const formData = {
         name: document.getElementById("username").value,
         email: document.getElementById("email").value,
@@ -117,7 +119,7 @@
         contentDiv.innerHTML = '';
 
         //Show added entry on data table
-        displayData(db)
+        displayData()
 
       };
 
@@ -128,12 +130,17 @@
       };
     }
 
-    function displayData(db){
+    /**
+     *Display data on indexedDB on datatable.
+     * Access globally for this document defined variable "db" to get required data
+     * */
+    function displayData(){
       objectStore = db.transaction("formData").objectStore("formData");
 
       // Get data table tbody
       const tableTbody = document.getElementById("datatable_tbody");
-      tableTbody.innerHTML = '';
+      tableTbody.innerHTML = '';//clearing tbody since we are looping through whole store.
+
       //Get all available data in indexedDB formdata store and add it to datatable.
       objectStore.openCursor().onsuccess = (event) => {
         const cursor = event.target.result;
@@ -146,8 +153,6 @@
                                     <td>${cursor.value.nic}</td>
                                   </tr>`;
           cursor.continue();
-        } else {
-          console.log("No more entries!");
         }
       };
     }
