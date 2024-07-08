@@ -35,6 +35,6 @@ describe('Adding form Data to IndexedDB', () => {
 
     cy.get('[data-cy="submit"]').click()
 
-    cy.get('div.alert.alert-danger[role="alert"]').should('be.visible');
+    cy.get('.alert-danger').should('be.visible');
   })
 })

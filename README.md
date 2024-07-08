@@ -8,7 +8,6 @@
 5. php artisan migrate
 6. php artisan serve
 
-
 ## Tests
 
 ### orderController (backend testing)
